@@ -3,7 +3,6 @@ export class MarvelService {
   _apiKey = "apikey=f0e972bed66c061fcc8a56403ae19202";
 
   getResource = async (url) => {
-    //Как работает выучить!!
     let res = await fetch(url);
     if (!res.ok) {
       throw new Error(`Could not fetch ${url}`);
@@ -19,5 +18,9 @@ export class MarvelService {
 
   getCharacter = (id) => {
     return this.getResource(`${this._apiBase}characters/${id}?${this._apiKey}`);
+  };
+
+  _transformCharacter = (res) => {
+    console.log(res);
   };
 }
