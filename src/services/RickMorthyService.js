@@ -1,5 +1,5 @@
 export class RickMortyService {
-  _url = "https://rickandmortyapi.com/api/character";
+  _url = "https://rickandmortyapi.com/api/charactr";
   getRes = async (url) => {
     let res = await fetch(url);
     if (!res.ok) {
