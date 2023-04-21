@@ -7,16 +7,14 @@ import { Spinner } from "../spinner/Spinner";
 import { Error } from "../errorMessage/ErrorMessage";
 
 class RandomChar extends Component {
-  constructor(props) {
-    super(props);
-    this.updateChar();
-  }
   state = {
     char: {},
     loading: true,
     error: false,
   };
-
+  componentDidMount() {
+    this.updateChar();
+  }
   rickMortyService = new RickMortyService();
 
   onChaLoaded = (char) => {
@@ -71,14 +69,6 @@ const View = ({ char }) => {
         <p className="randomchar__descr">{species}</p>
         <p className="randomchar__descr">From: {origin}</p>
         <p className="randomchar__episode">Episodes: {episode}</p>
-        <div className="randomchar__btns">
-          <a href={homepage} className="button button__main">
-            <div className="inner">homepage</div>
-          </a>
-          <a href={wiki} className="button button__secondary">
-            <div className="inner">Wiki</div>
-          </a>
-        </div>
       </div>
     </div>
   );
