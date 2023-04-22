@@ -8,7 +8,7 @@ export class RickMortyService {
     return await res.json();
   };
   getAllCharacters = async () => {
-    const res = await this.getRes(`${this._url}`);
+    const res = await this.getRes(`${this._url}/?page=1`);
     return res.results.map(this._transformCharacter);
   };
   getCharacter = async (id) => {
@@ -18,12 +18,13 @@ export class RickMortyService {
 
   _transformCharacter = (res) => {
     return {
+      id: res.id,
       name: res.name,
       species: res.species,
       thumbnail: res.image,
       status: res.status,
       origin: res.origin.name,
-      episode: res.episode.length,
+      episode: res.episode,
     };
   };
 }

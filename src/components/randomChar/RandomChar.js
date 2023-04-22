@@ -17,17 +17,21 @@ class RandomChar extends Component {
   }
   rickMortyService = new RickMortyService();
 
-  onChaLoaded = (char) => {
+  onCharLoaded = (char) => {
     this.setState({ char, loading: false });
+  };
+  onCarLoading = () => {
+    this.setState({ loading: true });
   };
   onError = () => {
     this.setState({ loading: false, error: true });
   };
   updateChar = () => {
     const id = Math.floor(Math.random() * (826 - 1 + 1)) + 1;
+    this.onCarLoading();
     this.rickMortyService
       .getCharacter(id)
-      .then(this.onChaLoaded)
+      .then(this.onCharLoaded)
       .catch(this.onError);
   };
 
@@ -49,7 +53,7 @@ class RandomChar extends Component {
             Do you want to get to know him better?
           </p>
           <p className="randomchar__title">Or choose another one</p>
-          <button className="button button__main">
+          <button className="button button__main" onClick={this.updateChar}>
             <div className="inner">try it</div>
           </button>
           <img src={ufo} alt="ufo" className="randomchar__decoration" />
@@ -59,7 +63,7 @@ class RandomChar extends Component {
   }
 }
 const View = ({ char }) => {
-  const { name, species, thumbnail, homepage, wiki, episode, origin } = char;
+  const { name, species, thumbnail, episode, origin } = char;
 
   return (
     <div className="randomchar__block">
@@ -68,7 +72,7 @@ const View = ({ char }) => {
         <p className="randomchar__name">{name}</p>
         <p className="randomchar__descr">{species}</p>
         <p className="randomchar__descr">From: {origin}</p>
-        <p className="randomchar__episode">Episodes: {episode}</p>
+        <p className="randomchar__episode">Episodes: {episode.length}</p>
       </div>
     </div>
   );
