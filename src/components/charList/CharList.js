@@ -6,19 +6,40 @@ import { Spinner } from "../spinner/Spinner";
 class CharList extends Component {
   state = {
     charArr: [],
+    currentPage: 1,
     loading: true,
     error: false,
   };
   componentDidMount() {
     this.updateChar();
   }
-
+  startPage = 1;
   rickMortyService = new RickMortyService();
   updateChar = () => {
-    this.rickMortyService
-      .getAllCharacters()
-      .then((res) => this.setState({ charArr: res, loading: false }));
+    this.rickMortyService.getAllCharacters().then((res) => {
+      // console.log(res);
+      this.setState({ charArr: res, loading: false });
+    });
   };
+  onCarLoading = () => {
+    this.setState({ loading: true });
+  };
+  getNewCharacters = () => {
+    this.startPage++;
+    this.setState({ currentPage: this.startPage });
+    this.rickMortyService
+      .getAllCharacters(this.state.currentPage)
+      .then((res) => {
+        this.onCarLoading = () => {
+          this.setState({ loading: true });
+        };
+        this.setState({ charArr: res, loading: false });
+      });
+  };
+  onRequest = (offset) => {
+    this.rickMortyService.getAllCharacters(offset);
+  };
+
   updateItems(arr) {
     const items = arr.map((item) => {
       return (
@@ -44,6 +65,14 @@ class CharList extends Component {
       <div className="char__list">
         {spinner}
         {content}
+        <button
+          className="button button__main button__long"
+          onClick={() => {
+            this.getNewCharacters();
+          }}
+        >
+          <div className="inner">load more</div>
+        </button>
       </div>
     );
   }

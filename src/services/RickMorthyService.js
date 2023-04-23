@@ -7,8 +7,8 @@ export class RickMortyService {
     }
     return await res.json();
   };
-  getAllCharacters = async () => {
-    const res = await this.getRes(`${this._url}/?page=1`);
+  getAllCharacters = async (pageNumber) => {
+    const res = await this.getRes(`${this._url}/?page=${pageNumber}`);
     return res.results.map(this._transformCharacter);
   };
   getCharacter = async (id) => {

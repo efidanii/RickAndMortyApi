@@ -22,6 +22,7 @@ class App extends Component {
           <RandomChar />
           <div className="char__content">
             <CharList onCharSelected={this.onCharSelected} />
+
             <CharInfo charId={this.state.selectedChar} />
           </div>
           <img className="bg-decoration" src={decoration} alt="vision" />
