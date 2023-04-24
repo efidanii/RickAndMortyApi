@@ -22,7 +22,7 @@ const CharList = (props) => {
     });
   };
 
-  const onCarLoading = () => {
+  const onCharLoading = () => {
     setLoading(true);
   };
 
@@ -30,7 +30,7 @@ const CharList = (props) => {
     startPage++;
     setCurrentPage(startPage);
     rickMortyService.getAllCharacters(currentPage).then((res) => {
-      onCarLoading(true);
+      onCharLoading(true);
       setCharArr(res);
       setLoading(false);
     });
