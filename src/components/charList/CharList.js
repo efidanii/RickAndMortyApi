@@ -6,7 +6,7 @@ import { Spinner } from "../spinner/Spinner";
 const CharList = (props) => {
   const [charArr, setCharArr] = useState([]),
     [currentPage, setCurrentPage] = useState(1),
-    { loading, error, getAllCharacters } = useRickMortyService();
+    { loading, getAllCharacters } = useRickMortyService();
 
   useEffect(() => {
     updateChar();
