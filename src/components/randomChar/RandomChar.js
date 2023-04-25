@@ -1,16 +1,14 @@
 import "./randomChar.scss";
 
 import ufo from "../../resources/img/ufo.png";
-import { Component, useEffect, useState } from "react";
-import { RickMortyService } from "../../services/RickMorthyService";
+import { useEffect, useState } from "react";
+import { useRickMortyService } from "../../services/RickMorthyService";
 import { Spinner } from "../spinner/Spinner";
 import { Error } from "../errorMessage/ErrorMessage";
 
 const RandomChar = () => {
   const [char, setChar] = useState({}),
-    [loading, setLoading] = useState(true),
-    [error, setError] = useState(false),
-    rickMortyService = new RickMortyService();
+    { loading, error, getCharacter } = useRickMortyService();
 
   useEffect(() => {
     updateChar();
@@ -23,20 +21,11 @@ const RandomChar = () => {
 
   const onCharLoaded = (char) => {
     setChar(char);
-    setLoading(false);
-  };
-  const onCarLoading = () => {
-    setLoading(true);
-  };
-  const onError = () => {
-    setLoading(false);
-    setError(true);
   };
 
   const updateChar = () => {
     const id = Math.floor(Math.random() * (826 - 1 + 1)) + 1;
-    onCarLoading();
-    rickMortyService.getCharacter(id).then(onCharLoaded).catch(onError);
+    getCharacter(id).then(onCharLoaded);
   };
 
   const errorMessage = error ? <Error /> : null,
@@ -73,7 +62,6 @@ const View = ({ char }) => {
         <p className="randomchar__name">{name}</p>
         <p className="randomchar__descr">{species}</p>
         <p className="randomchar__descr">From: {origin}</p>
-        <p className="randomchar__episode">Episodes: {episode.length}</p>
       </div>
     </div>
   );

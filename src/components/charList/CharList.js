@@ -1,38 +1,27 @@
 import "./charList.scss";
-import { useState, useEffect, useRef } from "react";
-import { RickMortyService } from "../../services/RickMorthyService";
+import { useState, useEffect } from "react";
+import { useRickMortyService } from "../../services/RickMorthyService";
 import { Spinner } from "../spinner/Spinner";
 
 const CharList = (props) => {
   const [charArr, setCharArr] = useState([]),
     [currentPage, setCurrentPage] = useState(1),
-    [loading, setLoading] = useState(true),
-    [error, setError] = useState(false),
-    rickMortyService = new RickMortyService(),
-    startPage = 1;
+    { loading, error, getAllCharacters } = useRickMortyService();
 
   useEffect(() => {
     updateChar();
   }, []);
 
   const updateChar = () => {
-    rickMortyService.getAllCharacters().then((res) => {
+    getAllCharacters(currentPage).then((res) => {
       setCharArr(res);
-      setLoading(false);
     });
   };
-
-  const onCharLoading = () => {
-    setLoading(true);
-  };
-
+  //БАГ С ПЕРВЫМ КЛИКОМ
   const getNewCharacters = () => {
-    startPage++;
-    setCurrentPage(startPage);
-    rickMortyService.getAllCharacters(currentPage).then((res) => {
-      onCharLoading(true);
+    setCurrentPage((currentPage) => currentPage + 1);
+    getAllCharacters(currentPage).then((res) => {
       setCharArr(res);
-      setLoading(false);
     });
   };
 
@@ -55,11 +44,11 @@ const CharList = (props) => {
 
   const items = updateItems(charArr);
   const spinner = loading ? <Spinner /> : null;
-  const content = !(loading || error) ? items : null;
+
   return (
     <div className="char__list">
       {spinner}
-      {content}
+      {items}
       <button
         className="button button__main button__long"
         onClick={() => {

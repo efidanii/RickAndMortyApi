@@ -1,16 +1,14 @@
 import "./charInfo.scss";
 
-import { Component, useEffect, useState } from "react";
-import { RickMortyService } from "../../services/RickMorthyService";
+import { useEffect, useState } from "react";
+import { useRickMortyService } from "../../services/RickMorthyService";
 import { Spinner } from "../spinner/Spinner";
 import { Error } from "../errorMessage/ErrorMessage";
 import { Skeleton } from "../skeleton/Skeleton";
 
 const CharInfo = (props) => {
   const [char, setChar] = useState(null),
-    [loading, setLoading] = useState(false),
-    [error, setError] = useState(false),
-    rickMortyService = new RickMortyService();
+    { loading, error, getCharacter } = useRickMortyService();
 
   useEffect(() => {
     updateChar();
@@ -20,23 +18,12 @@ const CharInfo = (props) => {
     if (!props.charId) {
       return;
     }
-    onCharLoading();
-    rickMortyService
-      .getCharacter(props.charId)
-      .then(onCharLoaded)
-      .catch(onError);
+
+    getCharacter(props.charId).then(onCharLoaded);
   };
 
   const onCharLoaded = (char) => {
     setChar(char);
-    setLoading(false);
-  };
-  const onCharLoading = () => {
-    setLoading(true);
-  };
-  const onError = () => {
-    setLoading(false);
-    setError(true);
   };
 
   const errorMessage = error ? <Error /> : null,
