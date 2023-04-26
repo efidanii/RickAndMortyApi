@@ -1,7 +1,6 @@
 import AppHeader from "../appHeader/AppHeader";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { MainPage } from "../pages/MainPage";
-import { ComicsPage } from "../pages/ComicsPage";
+import { MainPage, ComicsPage, Page404 } from "../pages/index";
 
 const App = () => {
   return (
@@ -12,6 +11,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={<MainPage />} />
             <Route path="/comics" element={<ComicsPage />} />
+            <Route path="*" element={<Page404 />}></Route>
           </Routes>
         </main>
       </div>

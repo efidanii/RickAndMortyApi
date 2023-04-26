@@ -5,7 +5,7 @@ export const useRickMortyService = () => {
     _url = "https://rickandmortyapi.com/api/character",
     getAllCharacters = async (pageNumber) => {
       const res = await request(`${_url}/?page=${pageNumber}`);
-      console.log(`${_url}/?page=${pageNumber}`);
+
       return res.results.map(_transformCharacter);
     },
     getCharacter = async (id) => {
