@@ -1,7 +1,7 @@
 import { Error } from "../errorMessage/ErrorMessage";
 import { Link } from "react-router-dom";
 
-export const Page404 = () => {
+const Page404 = () => {
   return (
     <div
       style={{
@@ -21,3 +21,5 @@ export const Page404 = () => {
     </div>
   );
 };
+
+export default Page404;
