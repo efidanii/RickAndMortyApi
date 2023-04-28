@@ -10,7 +10,7 @@ const App = () => {
       <div className="app">
         <AppHeader />
         <main>
-          <Suspense fallback={<span>Loading...</span>}>
+          <Suspense fallback={<span>Loading....</span>}>
             <Routes>
               <Route path="/" element={<MainPage />} />
               <Route path="/comics" element={<ComicsPage />} />
