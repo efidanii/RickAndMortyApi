@@ -5,7 +5,7 @@ const Page404 = () => {
   return (
     <div
       style={{
-        width: "100%",
+        width: "99%",
         display: "flex",
         "flex-direction": "column",
         "align-items": "center",
